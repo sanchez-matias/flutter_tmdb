@@ -38,6 +38,13 @@ class HomeScreen extends ConsumerWidget {
                     loading: () => const Text('Loading name'),
                     data: (data) => Text(data!.name),
                   ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      ref.read(authenticationProvider.notifier).logout();
+                    },
+                    icon: const Icon(Icons.logout),
+                  )
                 ],
               ),
             ),
@@ -51,22 +58,6 @@ class HomeScreen extends ConsumerWidget {
               },
             ),
             const Divider(),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-              onPressed: () {
-                ref.read(authenticationProvider.notifier).logout();
-              },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.logout),
-                  SizedBox(width: 10),
-                  Text('Log Out', style: TextStyle(fontSize: 20)),
-                ],
-              ),
-            ),
           ]),
     );
   }
