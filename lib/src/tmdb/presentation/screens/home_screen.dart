@@ -1,37 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tmdb/config/router.dart';
-import 'package:flutter_tmdb/src/tmdb/presentation/views/views.dart';
-
-class MenuDestination {
-  final String name;
-  final IconData iconData;
-  final Widget child;
-
-  MenuDestination({
-    required this.name,
-    required this.iconData,
-    required this.child,
-  });
-}
-
-final destinations = [
-  MenuDestination(
-    name: 'Movies',
-    iconData: Icons.movie,
-    child: const MoviesView(),
-  ),
-  MenuDestination(
-    name: 'TV',
-    iconData: Icons.tv,
-    child: const TvView(),
-  ),
-  MenuDestination(
-    name: 'Popular People',
-    iconData: Icons.people,
-    child: const ActorsView(),
-  ),
-];
+import 'package:flutter_tmdb/src/auth/presentation/providers/auth_providers.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -39,6 +9,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(homeIndexProvider);
+    final destinations = ref.watch(drawerDestinationsProvider);
+    final loggedUser = ref.watch(loggedUserProvider);
 
     return Scaffold(
       body: destinations[index].child,
@@ -48,13 +20,24 @@ class HomeScreen extends ConsumerWidget {
             ref.read(homeIndexProvider.notifier).changeIndex(value);
           },
           children: [
-            const DrawerHeader(
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+            DrawerHeader(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
               child: Row(
                 children: [
-                  CircleAvatar(minRadius: 30),
-                  SizedBox(width: 20),
-                  Text('Username')
+                  CircleAvatar(
+                    minRadius: 30,
+                    backgroundImage: loggedUser.when(
+                      error: (error, stackTrace) => null,
+                      loading: () => null,
+                      data: (data) => NetworkImage('https://image.tmdb.org/t/p/w500${data!.avatarPath}'),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  loggedUser.when(
+                    error: (error, stackTrace) => const Text('Unknown'),
+                    loading: () => const Text('Loading name'),
+                    data: (data) => Text(data!.name),
+                  ),
                 ],
               ),
             ),
@@ -67,8 +50,23 @@ class HomeScreen extends ConsumerWidget {
                 return NavigationDrawerDestination(icon: icon, label: name);
               },
             ),
-
-            const Divider()
+            const Divider(),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              onPressed: () {
+                ref.read(authenticationProvider.notifier).logout();
+              },
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.logout),
+                  SizedBox(width: 10),
+                  Text('Log Out', style: TextStyle(fontSize: 20)),
+                ],
+              ),
+            ),
           ]),
     );
   }

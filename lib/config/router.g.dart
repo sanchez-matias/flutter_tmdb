@@ -6,6 +6,37 @@ part of 'router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$appRouterHash() => r'1a7802f26ae96c0cd6f1bcc35a910fda46566b61';
+
+/// See also [appRouter].
+@ProviderFor(appRouter)
+final appRouterProvider = AutoDisposeProvider<GoRouter>.internal(
+  appRouter,
+  name: r'appRouterProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appRouterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AppRouterRef = AutoDisposeProviderRef<GoRouter>;
+String _$drawerDestinationsHash() =>
+    r'37b080847b52862fa71b28f5645a39975cbcbf92';
+
+/// See also [DrawerDestinations].
+@ProviderFor(DrawerDestinations)
+final drawerDestinationsProvider = AutoDisposeNotifierProvider<
+    DrawerDestinations, List<MenuDestination>>.internal(
+  DrawerDestinations.new,
+  name: r'drawerDestinationsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$drawerDestinationsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DrawerDestinations = AutoDisposeNotifier<List<MenuDestination>>;
 String _$homeIndexHash() => r'550b8dcf4d3cd88d0c57359a6c34489db32e1762';
 
 /// See also [HomeIndex].
