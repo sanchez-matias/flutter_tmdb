@@ -144,6 +144,37 @@ class DrawerDestinations extends _$DrawerDestinations {
           iconData: Icons.people,
           child: const ActorsView(),
         ),
+        MenuDestination(
+          name: 'Rated Movies',
+          iconData: Icons.star_rate_rounded,
+          child: const RatedMoviesView(),
+        ),
+        MenuDestination(
+          name: 'Rated TV',
+          iconData: Icons.star_rate_rounded,
+          child: const RatedTvView(),
+        ),
+        MenuDestination(
+          name: 'Favorite Movies',
+          iconData: Icons.favorite,
+          child: const FavoriteMoviesView(),
+        ),
+        MenuDestination(
+          name: 'Favorite TV',
+          iconData: Icons.favorite,
+          child: const FavoriteTvView(),
+        ),
+        MenuDestination(
+          name: 'Movies Watchlist',
+          iconData: Icons.remove_red_eye,
+          child: const WatchlistMoviesView(),
+        ),
+        MenuDestination(
+          name: 'TV Watchlist',
+          iconData: Icons.remove_red_eye,
+          child: const WatchlistTvView(),
+        ),
+        
       ];
 
   // void addNewDestination() {}

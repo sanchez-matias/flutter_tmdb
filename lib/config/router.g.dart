@@ -21,7 +21,7 @@ final appRouterProvider = AutoDisposeProvider<GoRouter>.internal(
 
 typedef AppRouterRef = AutoDisposeProviderRef<GoRouter>;
 String _$drawerDestinationsHash() =>
-    r'37b080847b52862fa71b28f5645a39975cbcbf92';
+    r'07d195ed4dc4bfbfa29590ed2ce4e010a0ca8f34';
 
 /// See also [DrawerDestinations].
 @ProviderFor(DrawerDestinations)

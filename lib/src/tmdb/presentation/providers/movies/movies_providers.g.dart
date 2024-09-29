@@ -364,5 +364,196 @@ final todaysTrendingProvider =
 );
 
 typedef _$TodaysTrending = AutoDisposeNotifier<List<GenericSlide>>;
+String _$ratedMoviesHash() => r'ed650a5e6f9fa225c572db03cf7ed38a9a62c573';
+
+/// See also [RatedMovies].
+@ProviderFor(RatedMovies)
+final ratedMoviesProvider =
+    AutoDisposeNotifierProvider<RatedMovies, List<GenericSlide>>.internal(
+  RatedMovies.new,
+  name: r'ratedMoviesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$ratedMoviesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$RatedMovies = AutoDisposeNotifier<List<GenericSlide>>;
+String _$favoriteMoviesHash() => r'2e190da74a1a375ec8f8ee6c4104d2eeb9cd759a';
+
+/// See also [FavoriteMovies].
+@ProviderFor(FavoriteMovies)
+final favoriteMoviesProvider =
+    AutoDisposeNotifierProvider<FavoriteMovies, List<GenericSlide>>.internal(
+  FavoriteMovies.new,
+  name: r'favoriteMoviesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$favoriteMoviesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FavoriteMovies = AutoDisposeNotifier<List<GenericSlide>>;
+String _$moviesWatchlistHash() => r'7b422fdc048b069e0caf8964221ee4608ad1bd5a';
+
+/// See also [MoviesWatchlist].
+@ProviderFor(MoviesWatchlist)
+final moviesWatchlistProvider =
+    AutoDisposeNotifierProvider<MoviesWatchlist, List<GenericSlide>>.internal(
+  MoviesWatchlist.new,
+  name: r'moviesWatchlistProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$moviesWatchlistHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$MoviesWatchlist = AutoDisposeNotifier<List<GenericSlide>>;
+String _$movieAccountStateHash() => r'4df23046ff10adc17a3fa10057b56e28af7accce';
+
+abstract class _$MovieAccountState
+    extends BuildlessAutoDisposeAsyncNotifier<TitleAccountState> {
+  late final String movieId;
+
+  FutureOr<TitleAccountState> build(
+    String movieId,
+  );
+}
+
+/// See also [MovieAccountState].
+@ProviderFor(MovieAccountState)
+const movieAccountStateProvider = MovieAccountStateFamily();
+
+/// See also [MovieAccountState].
+class MovieAccountStateFamily extends Family<AsyncValue<TitleAccountState>> {
+  /// See also [MovieAccountState].
+  const MovieAccountStateFamily();
+
+  /// See also [MovieAccountState].
+  MovieAccountStateProvider call(
+    String movieId,
+  ) {
+    return MovieAccountStateProvider(
+      movieId,
+    );
+  }
+
+  @override
+  MovieAccountStateProvider getProviderOverride(
+    covariant MovieAccountStateProvider provider,
+  ) {
+    return call(
+      provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'movieAccountStateProvider';
+}
+
+/// See also [MovieAccountState].
+class MovieAccountStateProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    MovieAccountState, TitleAccountState> {
+  /// See also [MovieAccountState].
+  MovieAccountStateProvider(
+    String movieId,
+  ) : this._internal(
+          () => MovieAccountState()..movieId = movieId,
+          from: movieAccountStateProvider,
+          name: r'movieAccountStateProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$movieAccountStateHash,
+          dependencies: MovieAccountStateFamily._dependencies,
+          allTransitiveDependencies:
+              MovieAccountStateFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  MovieAccountStateProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final String movieId;
+
+  @override
+  FutureOr<TitleAccountState> runNotifierBuild(
+    covariant MovieAccountState notifier,
+  ) {
+    return notifier.build(
+      movieId,
+    );
+  }
+
+  @override
+  Override overrideWith(MovieAccountState Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: MovieAccountStateProvider._internal(
+        () => create()..movieId = movieId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<MovieAccountState, TitleAccountState>
+      createElement() {
+    return _MovieAccountStateProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MovieAccountStateProvider && other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin MovieAccountStateRef
+    on AutoDisposeAsyncNotifierProviderRef<TitleAccountState> {
+  /// The parameter `movieId` of this provider.
+  String get movieId;
+}
+
+class _MovieAccountStateProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<MovieAccountState,
+        TitleAccountState> with MovieAccountStateRef {
+  _MovieAccountStateProviderElement(super.provider);
+
+  @override
+  String get movieId => (origin as MovieAccountStateProvider).movieId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

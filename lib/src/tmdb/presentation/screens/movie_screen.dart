@@ -42,34 +42,58 @@ class MovieScreen extends ConsumerWidget {
   }
 }
 
-class _CustomAppBar extends StatelessWidget {
+class _CustomAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomAppBar(this.movie);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final movieAccountState = ref.watch(movieAccountStateProvider(movie.id));
 
     return SliverAppBar(
       pinned: true,
       foregroundColor: Colors.white,
       backgroundColor: Colors.black,
       expandedHeight: size.width / 2,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.favorite_outline),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.bookmark_outline),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.list_rounded),
-        ),
-      ],
+      actions: movieAccountState.when(
+        error: (error, stackTrace) => [const Icon(Icons.error_outline)],
+        loading: () => [
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.favorite_outline),
+          ),
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.bookmark_outline),
+          ),
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.list_rounded),
+          ),
+        ],
+        data: (data) => [
+          IconButton(
+            onPressed: () async {
+              await ref.read(movieAccountStateProvider(movie.id).notifier)
+                .toggleMovieFavorite();
+            },
+            icon: data.isFavorite
+              ? const Icon(Icons.favorite, color: Colors.red)
+              : const Icon(Icons.favorite_border),
+          ),
+          IconButton(
+            onPressed: () async {
+              await ref.read(movieAccountStateProvider(movie.id).notifier)
+                .toggleMovieWatchlist();
+            },
+            icon: data.isInWatchlist
+              ? const Icon(Icons.bookmark)
+              : const Icon(Icons.bookmark_outline),
+          ),
+        ],
+      ),
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [

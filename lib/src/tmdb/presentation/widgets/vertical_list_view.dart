@@ -23,6 +23,9 @@ class _VerticalListViewState extends State<VerticalListView> {
   @override
   void initState() {
     super.initState();
+
+    widget.loadNextPage();
+
     controller.addListener(
       () {
         if (controller.position.pixels + 200 >=

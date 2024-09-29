@@ -506,5 +506,194 @@ final topRatedTvProvider =
 );
 
 typedef _$TopRatedTv = AutoDisposeNotifier<List<GenericSlide>>;
+String _$ratedTvHash() => r'ab8f035ea5e699809a6c7b42f15c67202f0fd482';
+
+/// See also [RatedTv].
+@ProviderFor(RatedTv)
+final ratedTvProvider =
+    AutoDisposeNotifierProvider<RatedTv, List<GenericSlide>>.internal(
+  RatedTv.new,
+  name: r'ratedTvProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$ratedTvHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$RatedTv = AutoDisposeNotifier<List<GenericSlide>>;
+String _$favoriteTvHash() => r'fd5c16a0b315f03f04bbb1497850f51f9b75c212';
+
+/// See also [FavoriteTv].
+@ProviderFor(FavoriteTv)
+final favoriteTvProvider =
+    AutoDisposeNotifierProvider<FavoriteTv, List<GenericSlide>>.internal(
+  FavoriteTv.new,
+  name: r'favoriteTvProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$favoriteTvHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FavoriteTv = AutoDisposeNotifier<List<GenericSlide>>;
+String _$tvWatchlistHash() => r'5e49b5e43c8cbc6c64e1b3bc7dbda7a3af69f9b9';
+
+/// See also [TvWatchlist].
+@ProviderFor(TvWatchlist)
+final tvWatchlistProvider =
+    AutoDisposeNotifierProvider<TvWatchlist, List<GenericSlide>>.internal(
+  TvWatchlist.new,
+  name: r'tvWatchlistProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tvWatchlistHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TvWatchlist = AutoDisposeNotifier<List<GenericSlide>>;
+String _$tvAccountStateHash() => r'9c78c731796b132e2f468ec90ab444ab30ad8929';
+
+abstract class _$TvAccountState
+    extends BuildlessAutoDisposeAsyncNotifier<TitleAccountState> {
+  late final String movieId;
+
+  FutureOr<TitleAccountState> build(
+    String movieId,
+  );
+}
+
+/// See also [TvAccountState].
+@ProviderFor(TvAccountState)
+const tvAccountStateProvider = TvAccountStateFamily();
+
+/// See also [TvAccountState].
+class TvAccountStateFamily extends Family<AsyncValue<TitleAccountState>> {
+  /// See also [TvAccountState].
+  const TvAccountStateFamily();
+
+  /// See also [TvAccountState].
+  TvAccountStateProvider call(
+    String movieId,
+  ) {
+    return TvAccountStateProvider(
+      movieId,
+    );
+  }
+
+  @override
+  TvAccountStateProvider getProviderOverride(
+    covariant TvAccountStateProvider provider,
+  ) {
+    return call(
+      provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'tvAccountStateProvider';
+}
+
+/// See also [TvAccountState].
+class TvAccountStateProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    TvAccountState, TitleAccountState> {
+  /// See also [TvAccountState].
+  TvAccountStateProvider(
+    String movieId,
+  ) : this._internal(
+          () => TvAccountState()..movieId = movieId,
+          from: tvAccountStateProvider,
+          name: r'tvAccountStateProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$tvAccountStateHash,
+          dependencies: TvAccountStateFamily._dependencies,
+          allTransitiveDependencies:
+              TvAccountStateFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  TvAccountStateProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final String movieId;
+
+  @override
+  FutureOr<TitleAccountState> runNotifierBuild(
+    covariant TvAccountState notifier,
+  ) {
+    return notifier.build(
+      movieId,
+    );
+  }
+
+  @override
+  Override overrideWith(TvAccountState Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: TvAccountStateProvider._internal(
+        () => create()..movieId = movieId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<TvAccountState, TitleAccountState>
+      createElement() {
+    return _TvAccountStateProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TvAccountStateProvider && other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TvAccountStateRef
+    on AutoDisposeAsyncNotifierProviderRef<TitleAccountState> {
+  /// The parameter `movieId` of this provider.
+  String get movieId;
+}
+
+class _TvAccountStateProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<TvAccountState,
+        TitleAccountState> with TvAccountStateRef {
+  _TvAccountStateProviderElement(super.provider);
+
+  @override
+  String get movieId => (origin as TvAccountStateProvider).movieId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

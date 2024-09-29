@@ -45,34 +45,58 @@ class TvScreen extends ConsumerWidget {
   }
 }
 
-class _SeriesAppbar extends StatelessWidget {
+class _SeriesAppbar extends ConsumerWidget {
   final TvSeries series;
 
   const _SeriesAppbar(this.series);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final tvAccountState = ref.watch(tvAccountStateProvider(series.id));
 
     return SliverAppBar(
       pinned: true,
       foregroundColor: Colors.white,
       backgroundColor: Colors.black,
       expandedHeight: size.width / 2,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.favorite_outline),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.bookmark_outline),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.list_rounded),
-        ),
-      ],
+      actions: tvAccountState.when(
+        error: (error, stackTrace) => [const Icon(Icons.error_outline)],
+        loading: () => [
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.favorite_outline),
+          ),
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.bookmark_outline),
+          ),
+          const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.list_rounded),
+          ),
+        ],
+        data: (data) => [
+          IconButton(
+            onPressed: () async {
+              await ref.read(tvAccountStateProvider(series.id).notifier)
+                .toggleTvFavorite();
+            },
+            icon: data.isFavorite
+              ? const Icon(Icons.favorite, color: Colors.red)
+              : const Icon(Icons.favorite_border),
+          ),
+          IconButton(
+            onPressed: () async {
+              await ref.read(tvAccountStateProvider(series.id).notifier)
+                .toggleTvWatchlist();
+            },
+            icon: data.isInWatchlist
+              ? const Icon(Icons.bookmark)
+              : const Icon(Icons.bookmark_outline),
+          ),
+        ],
+      ),
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [

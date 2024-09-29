@@ -1,3 +1,9 @@
 export 'tv_view.dart';
 export 'movies_view.dart';
 export 'actors_view.dart';
+export 'authenticated/rated_movies_view.dart';
+export 'authenticated/rated_tv_view.dart';
+export 'authenticated/favorite_movies_view.dart';
+export 'authenticated/favorite_tv_view.dart';
+export 'authenticated/watchlist_movies_view.dart';
+export 'authenticated/watchlist_tv_view.dart';

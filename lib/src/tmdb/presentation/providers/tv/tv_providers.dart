@@ -1,5 +1,8 @@
 // ignore_for_file: avoid_public_notifier_properties
+import 'package:flutter_tmdb/src/auth/presentation/providers/auth_providers.dart';
+import 'package:flutter_tmdb/src/auth/presentation/providers/auth_repo_provider.dart';
 import 'package:flutter_tmdb/src/tmdb/domain/entities/generic_slide.dart';
+import 'package:flutter_tmdb/src/tmdb/domain/entities/title_account_state.dart';
 import 'package:flutter_tmdb/src/tmdb/domain/entities/tv_episode.dart';
 import 'package:flutter_tmdb/src/tmdb/domain/entities/tv_series.dart';
 import 'package:flutter_tmdb/src/tmdb/presentation/providers/tv/tv_repo_provider.dart';
@@ -136,5 +139,162 @@ class TopRatedTv extends _$TopRatedTv {
     ];
 
     isLoading = false;
+  }
+}
+
+@riverpod
+class RatedTv extends _$RatedTv {
+  int page = 0;
+  bool isLoading = false;
+
+  @override
+  List<GenericSlide> build() {
+    return [];
+  }
+
+  Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = true;
+    page++;
+
+    final authState = ref.read(authenticationProvider);
+    final user = await ref.read(authRepositoryProvider)
+      .getUserDetails(authState.sessionId!);
+
+    final series = await ref.read(tvRepositoryProvider).getRatedTv(
+          accountId: user.id,
+          sessionId: authState.sessionId!,
+          page: page,
+        );
+
+    state = [
+      ...state,
+      ...series,
+    ];
+
+    isLoading = false;
+  }
+}
+
+@riverpod
+class FavoriteTv extends _$FavoriteTv {
+  int page = 0;
+  bool isLoading = false;
+
+  @override
+  List<GenericSlide> build() {
+    return [];
+  }
+
+  Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = true;
+    page++;
+
+    final authState = ref.read(authenticationProvider);
+    final user = await ref.read(authRepositoryProvider)
+      .getUserDetails(authState.sessionId!);
+
+    final series = await ref.read(tvRepositoryProvider).getFavoriteTv(
+          accountId: user.id,
+          sessionId: authState.sessionId!,
+          page: page,
+        );
+
+    state = [
+      ...state,
+      ...series,
+    ];
+
+    isLoading = false;
+  }
+}
+
+@riverpod
+class TvWatchlist extends _$TvWatchlist {
+  int page = 0;
+  bool isLoading = false;
+
+  @override
+  List<GenericSlide> build() {
+    return [];
+  }
+
+  Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = true;
+    page++;
+
+    final authState = ref.read(authenticationProvider);
+    final user = await ref.read(authRepositoryProvider)
+      .getUserDetails(authState.sessionId!);
+
+    final series = await ref.read(tvRepositoryProvider).getWatchlistTv(
+          accountId: user.id,
+          sessionId: authState.sessionId!,
+          page: page,
+        );
+
+    state = [
+      ...state,
+      ...series,
+    ];
+
+    isLoading = false;
+  }
+}
+
+@riverpod
+class TvAccountState extends _$TvAccountState {
+  @override
+  FutureOr<TitleAccountState> build(String movieId) async {
+    final authState = ref.watch(authenticationProvider);
+
+    final movieAccountState = await ref.read(tvRepositoryProvider).getTvAccountState(
+              sessionId: authState.sessionId!,
+              movieId: movieId,
+            );
+
+    return movieAccountState;
+  }
+
+  Future<void> toggleTvFavorite() async {
+    final authState = ref.watch(authenticationProvider);
+
+    if (authState.isGuest || authState.sessionId == null) return;
+
+    final user = await ref.watch(authRepositoryProvider)
+      .getUserDetails(authState.sessionId!);
+ 
+    final movieState = await future;
+
+    await ref.read(tvRepositoryProvider).setTvFavorite(
+            accountId: user.id,
+            sessionId: authState.sessionId!,
+            movieId: movieId,
+            value: !movieState.isFavorite,
+          );
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> toggleTvWatchlist() async {
+    final authState = ref.watch(authenticationProvider);
+
+    if (authState.isGuest || authState.sessionId == null) return;
+
+    final user = await ref.watch(authRepositoryProvider)
+      .getUserDetails(authState.sessionId!);
+ 
+    final movieState = await future;
+
+    await ref.read(tvRepositoryProvider).setTvWatchlist(
+            accountId: user.id,
+            sessionId: authState.sessionId!,
+            movieId: movieId,
+            value: !movieState.isInWatchlist,
+          );
+    
+    ref.invalidateSelf();
   }
 }
