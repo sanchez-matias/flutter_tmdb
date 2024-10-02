@@ -58,6 +58,17 @@ abstract class TvDatasource {
     required String tvId,
     required bool value,
   });
+
+  Future<void> castTVRaiting({
+    required String sessionId,
+    required String tvId,
+    required int value,
+  });
+
+  Future<void> deleteTvRaiting({
+    required String sessionId,
+    required String tvId,
+  });
 }
 
 class TvDatasourceImpl extends TvDatasource {
@@ -233,6 +244,28 @@ class TvDatasourceImpl extends TvDatasource {
       'media_type': 'tv',
       'media_id': tvId,
       'watchlist': value.toString()
+    });
+  }
+  
+  @override
+  Future<void> castTVRaiting({
+    required String sessionId,
+    required String tvId,
+    required int value,
+  }) async {
+    await dio.post('/tv/$tvId/rating', queryParameters: {
+      'session_id': sessionId,
+      'value': value.toDouble(),
+    });
+  }
+
+  @override
+  Future<void> deleteTvRaiting({
+    required String sessionId,
+    required String tvId,
+  }) async {
+    await dio.delete('/tv/$tvId/rating', queryParameters: {
+      'session_id': sessionId,
     });
   }
 }

@@ -8,3 +8,4 @@ export 'info_card.dart';
 export 'recomendations_section.dart';
 export 'reviews_section.dart';
 export 'vertical_list_view.dart';
+export 'raiting_button.dart';

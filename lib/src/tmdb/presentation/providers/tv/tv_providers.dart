@@ -247,12 +247,12 @@ class TvWatchlist extends _$TvWatchlist {
 @riverpod
 class TvAccountState extends _$TvAccountState {
   @override
-  FutureOr<TitleAccountState> build(String movieId) async {
+  FutureOr<TitleAccountState> build(String tvId) async {
     final authState = ref.watch(authenticationProvider);
 
     final movieAccountState = await ref.read(tvRepositoryProvider).getTvAccountState(
               sessionId: authState.sessionId!,
-              movieId: movieId,
+              movieId: tvId,
             );
 
     return movieAccountState;
@@ -271,7 +271,7 @@ class TvAccountState extends _$TvAccountState {
     await ref.read(tvRepositoryProvider).setTvFavorite(
             accountId: user.id,
             sessionId: authState.sessionId!,
-            movieId: movieId,
+            movieId: tvId,
             value: !movieState.isFavorite,
           );
 
@@ -291,9 +291,42 @@ class TvAccountState extends _$TvAccountState {
     await ref.read(tvRepositoryProvider).setTvWatchlist(
             accountId: user.id,
             sessionId: authState.sessionId!,
-            movieId: movieId,
+            movieId: tvId,
             value: !movieState.isInWatchlist,
           );
+    
+    ref.invalidateSelf();
+  }
+
+  Future<void> castRaiting(int raiting) async {
+    final authState = ref.read(authenticationProvider);
+
+    if (authState.isGuest) {
+     // TODO: handle the raiting for guests.
+     return; 
+    }
+
+    await ref.read(tvRepositoryProvider).castTvRaiting(
+          sessionId: authState.sessionId!,
+          tvId: tvId,
+          value: raiting,
+        );
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> deleteRaiting() async {
+    final authState = ref.read(authenticationProvider);
+
+    if (authState.isGuest) {
+      // TODO: handle the raiting for guests.
+      return;
+    }
+
+    await ref.read(tvRepositoryProvider).deleteTvRaiting(
+          sessionId: authState.sessionId!,
+          tvId: tvId,
+        );
     
     ref.invalidateSelf();
   }

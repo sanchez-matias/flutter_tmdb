@@ -57,4 +57,15 @@ abstract class TvRepository {
     required String movieId,
     required bool value,
   });
+
+  Future<void> castTvRaiting({
+    required String sessionId,
+    required String tvId,
+    required int value,
+  });
+
+  Future<void> deleteTvRaiting({
+    required String sessionId,
+    required String tvId,
+  });
 }

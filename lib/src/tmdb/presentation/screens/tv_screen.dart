@@ -71,10 +71,6 @@ class _SeriesAppbar extends ConsumerWidget {
             onPressed: null,
             icon: Icon(Icons.bookmark_outline),
           ),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(Icons.list_rounded),
-          ),
         ],
         data: (data) => [
           IconButton(
@@ -126,6 +122,17 @@ class _SeriesAppbar extends ConsumerWidget {
                   stops: [0.0, 0.45],
                 ),
               )),
+            ),
+
+
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: RaitingButton(
+                asyncAccountState: tvAccountState,
+                castRaitingCallback: ref.read(tvAccountStateProvider(series.id).notifier).castRaiting,
+                deleteRaitingCallback: ref.read(tvAccountStateProvider(series.id).notifier).deleteRaiting,
+              ),
             ),
           ],
         ),

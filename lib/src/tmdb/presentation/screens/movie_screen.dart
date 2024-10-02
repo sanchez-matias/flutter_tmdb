@@ -68,10 +68,6 @@ class _CustomAppBar extends ConsumerWidget {
             onPressed: null,
             icon: Icon(Icons.bookmark_outline),
           ),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(Icons.list_rounded),
-          ),
         ],
         data: (data) => [
           IconButton(
@@ -123,6 +119,16 @@ class _CustomAppBar extends ConsumerWidget {
                   stops: [0.0, 0.45],
                 ),
               )),
+            ),
+
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: RaitingButton(
+                asyncAccountState: movieAccountState,
+                castRaitingCallback: ref.read(movieAccountStateProvider(movie.id).notifier).castRaiting,
+                deleteRaitingCallback: ref.read(movieAccountStateProvider(movie.id).notifier).deleteRaiting,
+              ),
             ),
           ],
         ),

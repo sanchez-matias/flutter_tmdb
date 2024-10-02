@@ -127,7 +127,7 @@ class TodaysTrending extends _$TodaysTrending {
     isLoading = true;
     page++;
 
-    final movies = await ref.read(movieRepositoyProvider).getUpcoming(page: page);
+    final movies = await ref.read(movieRepositoyProvider).getTodaysTrending(page: page);
 
     state = [
       ...state,
@@ -290,6 +290,39 @@ class MovieAccountState extends _$MovieAccountState {
             movieId: movieId,
             value: !movieState.isInWatchlist,
           );
+    
+    ref.invalidateSelf();
+  }
+
+  Future<void> castRaiting(int raiting) async {
+    final authState = ref.read(authenticationProvider);
+
+    if (authState.isGuest) {
+     // TODO: handle the raiting for guests.
+     return; 
+    }
+
+    await ref.read(movieRepositoyProvider).castMovieRaiting(
+          sessionId: authState.sessionId!,
+          movieId: movieId,
+          value: raiting,
+        );
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> deleteRaiting() async {
+    final authState = ref.read(authenticationProvider);
+
+    if (authState.isGuest) {
+      // TODO: handle the raiting for guests.
+      return;
+    }
+
+    await ref.read(movieRepositoyProvider).deleteMovieRaiting(
+          sessionId: authState.sessionId!,
+          movieId: movieId,
+        );
     
     ref.invalidateSelf();
   }

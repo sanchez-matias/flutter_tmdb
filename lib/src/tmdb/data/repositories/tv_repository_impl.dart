@@ -127,4 +127,28 @@ class TvRepositoryImpl extends TvRepository {
       value: value,
     );
   }
+  
+  @override
+  Future<void> castTvRaiting({
+    required String sessionId,
+    required String tvId,
+    required int value,
+  }) {
+    return _datasource.castTVRaiting(
+      sessionId: sessionId,
+      tvId: tvId,
+      value: value,
+    );
+  }
+
+  @override
+  Future<void> deleteTvRaiting({
+    required String sessionId,
+    required String tvId,
+  }) {
+    return _datasource.deleteTvRaiting(
+      sessionId: sessionId,
+      tvId: tvId,
+    );
+  }
 }

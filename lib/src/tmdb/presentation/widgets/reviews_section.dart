@@ -17,23 +17,13 @@ class ReviewsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
-          child: Row(
-            children: [
-              const Text(
-                'Reviews',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Spacer(),
-              FilledButton.icon(
-                onPressed: () {},
-                label: const Text('Rate this title'),
-                icon: const Icon(Icons.edit),
-              ),
-            ],
+          padding: const EdgeInsets.all(15),
+          child: const Text(
+            'Reviews',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         SizedBox( 

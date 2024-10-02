@@ -53,6 +53,17 @@ abstract class MoviesDatasource {
     required String movieId,
     required bool value,
   });
+
+  Future<void> castMovieRaiting({
+    required String sessionId,
+    required String movieId,
+    required int value,
+  });
+
+  Future<void> deleteMovieRaiting({
+    required String sessionId,
+    required String movieId,
+  });
 }
 
 class MoviesDatasourceImpl extends MoviesDatasource {
@@ -202,5 +213,25 @@ class MoviesDatasourceImpl extends MoviesDatasource {
     });
   }
   
-
+  @override
+  Future<void> castMovieRaiting({
+    required String sessionId,
+    required String movieId,
+    required int value,
+  }) async {
+    await dio.post('/movie/$movieId/rating', queryParameters: {
+      'session_id': sessionId,
+      'value': value.toDouble()
+    });
+  }
+  
+  @override
+  Future<void> deleteMovieRaiting({
+    required String sessionId,
+    required String movieId,
+  }) async {
+    await dio.delete('/movie/$movieId/rating', queryParameters: {
+      'session_id': sessionId,
+    });
+  }
 }

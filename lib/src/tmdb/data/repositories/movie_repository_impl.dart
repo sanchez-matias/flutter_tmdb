@@ -127,4 +127,28 @@ class MoviesRepositoryImpl extends MoviesRepository {
       value: value,
     );
   }
+  
+  @override
+  Future<void> castMovieRaiting({
+    required String sessionId,
+    required String movieId,
+    required int value,
+  }) {
+    return _datasource.castMovieRaiting(
+      sessionId: sessionId,
+      movieId: movieId,
+      value: value,
+    );
+  }
+  
+  @override
+  Future<void> deleteMovieRaiting({
+    required String sessionId,
+    required String movieId,
+  }) {
+    return _datasource.deleteMovieRaiting(
+      sessionId: sessionId,
+      movieId: movieId,
+    );
+  }
 }

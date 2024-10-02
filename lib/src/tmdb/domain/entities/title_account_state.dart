@@ -1,11 +1,11 @@
 class TitleAccountState {
   final bool isFavorite;
-  final bool isRated;
+  final int? raiting;
   final bool isInWatchlist;
 
   TitleAccountState({
     required this.isFavorite,
-    required this.isRated,
+    required this.raiting,
     required this.isInWatchlist,
   });
 }

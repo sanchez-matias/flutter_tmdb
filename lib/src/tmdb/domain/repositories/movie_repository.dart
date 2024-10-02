@@ -51,4 +51,15 @@ abstract class MoviesRepository {
     required String movieId,
     required bool value,
   });
+
+  Future<void> castMovieRaiting({
+    required String sessionId,
+    required String movieId,
+    required int value,
+  });
+
+  Future<void> deleteMovieRaiting({
+    required String sessionId,
+    required String movieId,
+  });
 }
