@@ -126,9 +126,7 @@ class MenuDestination {
 }
 
 @riverpod
-class DrawerDestinations extends _$DrawerDestinations {
-  @override
-  List<MenuDestination> build() => [
+List<MenuDestination> drawerDestinations(DrawerDestinationsRef ref) => [
         MenuDestination(
           name: 'Movies',
           iconData: Icons.movie,
@@ -176,9 +174,6 @@ class DrawerDestinations extends _$DrawerDestinations {
         ),
         
       ];
-
-  // void addNewDestination() {}
-}
 
 @riverpod
 class HomeIndex extends _$HomeIndex {
